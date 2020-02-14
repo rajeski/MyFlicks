@@ -1,4 +1,4 @@
-// Rearranged code based on CF-provided examples 
+// Rearranged and reorganized this part of the file
 
 const mongoose = require('mongoose'),
   bcrypt = require('bcrypt');

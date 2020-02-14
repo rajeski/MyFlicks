@@ -1,184 +1,233 @@
-// Rearranged code based on CF-provided examples
+// Rearranged and reorganized this file
 
 const express = require('express'),
-  morgan = require('morgan'),
-  bodyParser = require("body-parser"),
-  uuid = require("uuid"),
+  bodyParser = require('body-parser'),
+  uuid = require('uuid'),
   mongoose = require('mongoose'),
-  Models = require('./models.js'),
-  Movies = Models.Movie,
-  Users = Models.User,
-  Genres = Models.Genre,
-  Directors = Models.Director,
-  passport = require('passport'),
-  cors = require('cors'),
-  { check, validationResult } = require('express-validator');
-
+  passport = require('passport');
 require('./passport');
 
-// Previous local database connection
-// mongoose.connect('mongodb://localhost:27017/myFlixDB', {useNewUrlParser: true});
+const { check, validationResult } = require('express-validator');
 
-// MongoDB Atlas connection
-mongoose.connect('mongodb+srv://myFlixDBAdmin:Admin@myflixdb-bfxal.mongodb.net/myFlixDB?retryWrites=true&w=majority', {useNewUrlParser: true});
+const Models = require('./models.js');
+const Movies = Models.Movie;
+const Users = Models.User;
 
 const app = express();
+const cors = require('cors');
 
-var allowedOrigins = ['http://localhost:8080', 'http://erinnienhuis.com', 'http://localhost:1234'];
-
-// Cors  
 app.use(cors({
   origin: function(origin, callback){
     if(!origin) return callback(null, true);
-    if(allowedOrigins.indexOf(origin) === -1){
-      var message = 'The CORS policy for this application does not allow access from origin ' + origin;
-      return callback(new Error(message), false);
+    if(allowedOrigins.indexOf(origin) === -1){ // If a specific origin isn’t found on the list of allowed origins
+      var message = 'The CORS policy for this application doesn’t allow access from origin ' + origin;
+      return callback(new Error(message ), false);
     }
     return callback(null, true);
   }
-})); // Unsure, is Cors Middleware?
+}));
 
-// Middleware 
+mongoose.connect('mongodb://localhost:27017/MyFlicksDB', {useNewUrlParser: true}); 
 
-// Logging
-app.use(morgan('common'));
+const morgan = require('morgan');
 
-// JSON Parsing
+// mongoose.connect(
+//   // pending... mongodb...
+//   {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true
+//   }
+// );
+
 app.use(bodyParser.json());
 
-// User Authorization
 var auth = require('./auth')(app);
 
-// Static files
+// Morgan middleware library - log all terminal requests 
+app.use(morgan('common'));
+  
+// To serve static file(s) - public folder
 app.use(express.static('public'));
-
-// Application Routing 
-
-// Error Handling 
-app.use(function (err, req, res, next) {
+  
+// Middleware error-handling function - log application-level errors to terminal
+app.use(function(err, req, res, next) {
   console.error(err.stack);
-  res.status(500).send('Uh-oh! Something\'s not right!');
+  res.status(500).send('An error occured');
 });
+  
+// POST users' request 
 
-// Requests
-app.get('/', function(req, res) {
-  var responseText = 'Welcome!!!'
-  res.send(responseText);
-});
+app.post('/users',
+  // Validation logic 
+  [check('Username', 'Username is required').isLength({min: 5}),
+  check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
+  check('Password', 'Password is required').not().isEmpty(),
+  check('Email', 'Email does not appear to be valid').isEmail()],
+  (req, res) => {
 
-// GET Movie list with Director and Genre
-app.get('/movies', function(req, res) {
-  Movies.aggregate([
-    { $lookup:
-      {
-        from: 'directors',
-        localField: 'Director',
-        foreignField: '_id',
-        as: 'moviedirectordetails'
-      }
-    },
-    { $lookup:
-      {
-        from: 'genres',
-        localField: 'Genres',
-        foreignField: '_id',
-        as: 'moviegenredetails'
-      }
+  // Check validation object for errors
+  var errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(422).json({ errors: errors.array() });
+  }
+
+  var hashedPassword = Users.hashPassword(req.body.Password);
+  Users.findOne({ Username : req.body.Username }) // Search if username already exists
+  .then(function(user) {
+    if (user) {
+      // If user is found, send a response "already exists" 
+        return res.status(400).send(req.body.Username + " already exists");
+    } else {
+      Users
+      .create({
+        Username : req.body.Username,
+        Password: hashedPassword,
+        Email : req.body.Email,
+        Birthday : req.body.Birthday
+      })
+      .then(function(user) { res.status(201).json(user) })
+      .catch(function(error) {
+          console.error(error);
+          res.status(500).send("Error: " + error);
+      });
     }
-  ])
-    .then(function(movies) {
-      res.status(201).json(movies);
   }).catch(function(error) {
     console.error(error);
     res.status(500).send("Error: " + error);
   });
 });
 
-// GET Single Movie By Title 
-app.get("/movies/:Title", function(req, res) {
-  Movies.findOne({ Title : req.params.Title })
-  .then(function(movie) {
-    res.json(movie)
+// POST Add movie, user's favorites' list 
+app.post('/users/:Username/Movies/:MovieID', 
+passport.authenticate('jwt', { session: false }),
+function(req, res) {
+  Users.findOneAndUpdate({ Username : req.params.Username }, {
+    $push : { FavoriteMovies : req.params.MovieID }
+  },
+  { new : true }, // Return updated document 
+  function(err, updatedUser) {
+    if (err) {
+      console.error(err);
+      res.status(500).send("Error: " + err);
+    } else {
+      res.json(updatedUser)
+    }
   })
-  .catch(function(err) {
-    console.error(err);
-    res.status(500).send("Error: " + err)
-  });
-  });
+});
 
-// GET Genre 
-app.get("/genres/:Genre", function(req, res) {
-  Genres.findOne({ Name : req.params.Genre })
-  .then(function(genre) {
-    res.json(genre.Description)
+app.post('/movies', 
+passport.authenticate('jwt', { session: false }),
+function(req, res) {
+  Movie.create({
+        Title: req.body.Title, 
+        Description: req.body.Description, 
+        Genre: req.body.Genre, 
+        Director: req.body.Director  
+      })
+      .then(function(movies) { res.status(201).json(movies) })
+      .catch(function(error) {
+        console.error(error);
+        res.status(500).send("Error: " + error);
+      })
+    });
+
+// PUT users' request 
+
+app.put('/users/:Username', 
+passport.authenticate('jwt', { session: false }),
+function(req, res) {
+  console.log('REQ', req.body);
+  Users.findOneAndUpdate({ Username : req.params.Username }, { $set :
+  {
+    Username : req.body.Username,
+    Password : req.body.Password,
+    Email : req.body.Email,
+    Birthday : req.body.Birthday
+  }},
+  { new : true }, // Return updated document 
+  function(err, updatedUser) {
+    if(err) {
+      console.error(err);
+      res.status(500).send("Error: " +err);
+    } else {
+      res.json(updatedUser)
+    }
   })
-  .catch(function(err) {
-    console.error(err);
-    res.status(500).send("Error: " + err)
-  });
 });
 
-// GET Movie list by Genre
-app.get("/movies/genres/:genre", (req, res) => {
-  // Search by genre name and return ID
+// READ GET genres
 
-  // Search all movie documents' Genres array for the ID returned above
-
-  // Mongoose callback function
-  // Movies.find( { "Genre.Name" : "Thriller" }, function(err, movies) {
-    // Logic here
-  //} );
-
-  // Mongoose promise function
-  // Movies.find( { "Genre.Name" : "Thriller" }).then(function(movies) {
-    // Logic here
-  //});
-
-  res.send('Under Construction.');
-})
-
-// GET Director by Name
-app.get("/directors/:Name", function(req, res) {
-  Directors.findOne({ Name : req.params.Name })
-  .then(function(director) {
-    res.json(director)
+app.get('/genres/:Name', 
+passport.authenticate('jwt', { session: false }),
+function(req, res) {
+  Movie.find({
+    'Genre.Name': req.params.Name
   })
-  .catch(function(err) {
+    .then((movies) => {
+      res.json(movies);
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).send("Error: " + error);
+    });
+}
+);
+
+// READ GET director
+
+app.get('/director/:Name', 
+passport.authenticate('jwt', { session: false }),
+function(req, res) {
+  Movie.find({
+    'Director.Name': req.params.Name
+  })
+    .then((movies) => {
+      res.json(movies);
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).send("Error: " + error);
+    });
+}
+);
+
+// READ GET movies
+
+app.get('/movies', 
+passport.authenticate('jwt', { session: false }), 
+function(req, res) {
+  Movie.find()
+  .then(function(movies) {
+    res.status(201).json(movies)
+  }).catch(function(err) {
     console.error(err);
-    res.status(500).send("Error: " + err)
+    res.status(500).send("Error: " + err);
   });
 });
 
-// ADD Movie Data for New Movie to Movie list 
-app.post("/movies", (req, res) => {
-//   let newMovie = req.body;
-//   if (!newMovie.title) {
-//     const message = "Missing title in request body";
-//     res.status(400).send(message);
-//   } else {
-//     newMovie.id = uuid.v4();
-//     topMovies.push(newMovie);
-//     res.status(201).send(newMovie);
-// }'
-  res.send('Under Construction.');
-});
+// READ GET single movie by title
 
-// DELETE Movie by Title from Movie List
-app.delete("/movies/:title", (req, res) => {
-  // let movie = topMovies.find((movie) => { return movie.title === req.params.title });
-  //
-  // if (movie) {
-  //   topMovies.filter(function(obj) { return obj.title !== req.params.title });
+app.get('/movies/:Title',
+passport.authenticate('jwt', { session: false }),
+  function (req, res) {
+    Movie.findOne({
+        Title: req.params.Title
+      })
+      .then(function (movies) {
+        res.json(movies);
+      })
+      .catch(function (err) {
+        console.error(err);
+        res.status(500).send("Error:" + err);
+      });
+  }
+);
 
-  // res.status(201).send("Movie " + req.params.title + " was deleted.")
-// }
-  res.send('Under Construction.');
-});
+// READ GET all users
 
-// USERS
-
-// GET All users 
-app.get('/users', passport.authenticate('jwt', { session: false }), function(req, res) {
+app.get('/users', 
+function(req, res) {
   Users.find()
   .then(function(users) {
     res.status(201).json(users)
@@ -189,142 +238,63 @@ app.get('/users', passport.authenticate('jwt', { session: false }), function(req
   });
 });
 
-// GET User by Username 
-app.get('/users/:Username', passport.authenticate('jwt', { session: false }), function(req, res) {
-  Users.findOne({ Username : req.params.Username })
+// READ Get a user by username 
+
+app.get('/user/:Username', function(req, res) {
+  User.findOne( {Username : req.params.Username })
   .then(function(user) {
     res.json(user)
   })
   .catch(function(err) {
     console.error(err);
-    res.status(500).send("Error: " + err)
+    res.status(500).send("Error: " + err);
   });
 });
 
-// POST Create a New User 
-app.post('/users',
-  // Validation logic
-  [
-    check('Username', 'Username cannot have fewer than 5 characters.').isLength({min: 5}),
-    check('Username', 'Username may not contain non alphanumeric characters.').isAlphanumeric(),
-    check('Password', 'Password is required.').not().isEmpty(),
-    check('Email', 'Email must be valid email address.').isEmail()
-  ], (req, res) => {
-    // Check validation object for errors
-    var errors = validationResult(req);
+// DELETE Remove movie, user's favorites' list
 
-    if (!errors.isEmpty()) {
-      return res.status(422).json({ errors: errors.array() });
-    }
+app.delete('/users/:Username/FavoriteMovies/:MovieID', 
+passport.authenticate('jwt', { session: false }),
+function(req, res) {
+  const { Username, MovieID } = req.params;	 
+  console.log(Username, MovieID);	 
+  Users.findOneAndUpdate(	  
+    // Update requested information
+    {	    
+      Username: Username	      
+    },	    
+    {	    
+      $pull: {	      
+        FavoriteMovies: MovieID	       
+      }	      
+    },	    
+    {	    
+      new: true	 
+    }, // Return updated document 
+    function(err, updatedUser) {	
+      if (err) {	      
+        console.error(err);	        
+        res.status(500).send('Error: ' + err);	     
+      } else {	     
+        res.json(updatedUser);	   
+      }	      
+    }	    
+  );	 
+});
 
-  // API Post logic
-  var hashedPassword = Users.hashPassword(req.body.Password); // Hash password 
+// DELETE request 
 
-  Users.findOne({ Username : req.body.Username }) // Check if user already exists
+// Delete user by username
+app.delete('/users/:Username', 
+passport.authenticate('jwt', { session: false }),
+function(req, res) {
+  console.log('REQ', req.body);
+  Users.findOneAndRemove({ Username: req.params.Username })
   .then(function(user) {
-    if (user) { // Username already exists
-      return res.status(400).send(req.body.Username + "already exists!");
-    } else { // Username can be used
-      Users
-      .create({
-        Username: req.body.Username,
-        Password: hashedPassword, // Store hashed password
-        Email: req.body.Email,
-        Birthday: req.body.Birthday
-      })
-      .then(function(user) {res.status(201).json(user) }) // Return new 'user' document
-      .catch(function(error) {
-        console.error(error);
-        res.status(500).send("Error: " + error);
-      })
-    }
-  }).catch(function(error) {
-    console.error(error);
-    res.status(500).send("Error: " + error);
-  });
-});
-
-// UPDATE User Information by Username 
-app.put("/users/:Username",
-
-// Validation logic
-[
-  check('Username', 'Username cannot have fewer than 5 characters.').isLength({min: 5}),
-  check('Username', 'Username may not contain non alphanumeric characters.').isAlphanumeric(),
-  check('Password', 'Password is required.').not().isEmpty(),
-  check('Email', 'Email must be valid email address.').isEmail()
-], passport.authenticate('jwt', { session: false }), function(req, res) {
-
-  // Check validation object for errors
-  var errors = validationResult(req);
-
-  if (!errors.isEmpty()) {
-    return res.status(422).json({ errors: errors.array() });
-  }
-
-  // API Post logic
-  var hashedPassword = Users.hashPassword(req.body.Password); //Hash the password using the HashPassword from bcrypt, enforced by models.js
-
-  Users.findOneAndUpdate({ Username : req.params.Username }, { $set :
-    {
-      Username : req.body.Username,
-      Password : hashedPassword,
-      Email : req.body.Email,
-      Birthday : req.body.Birthday
-    }},
-    { new : true }, // Return updated document information 
-    function(err, updatedUser) {
-      if(err) {
-        console.error(err);
-        res.status(500).send("Error: " + err);
-      } else {
-        res.json(updatedUser)
-      }
-    })
-});
-
-// ADD Movie to User Favorites' Movie List 
-app.post("/users/:Username/Movies/:MovieID", passport.authenticate('jwt', { session: false }), function(req, res) {
-  Users.findOneAndUpdate({ Username : req.params.Username }, {
-    $push : { FavoriteMovies : req.params.MovieID }
-  },
-  { new : true },
-  function(err, updatedUser) {
-    if(err) {
-      console.error(err);
-      res.status(500).send("Error: " + err);
+    if (!user) {
+      res.status(400).send(req.params.Username + " was not found");
     } else {
-      res.json(updatedUser)
-    }
-  })
-});
-
-// DELETE Movie from User Favorites' Movie List
-// Validation logic 
-app.delete("/users/:Username/Movies/:MovieID", passport.authenticate('jwt', { session: false }), function(req, res) {
-  Users.findOneAndUpdate({ Username : req.params.Username }, {
-    $pull : { FavoriteMovies : req.params.MovieID }
-  },
-  { new : true },
-  function(err, updatedUser) {
-    if(err) {
-      console.error(err);
-      res.status(500).send("Error: " + err);
-    } else {
-      res.json(updatedUser)
-    }
-  })
-});
-
-// DELETE User
-// Validation logic 
-app.delete("/users/:Username", passport.authenticate('jwt', { session: false }), function(req, res) {
-  Users.findOneAndRemove({ Username : req.params.Username })
-  .then(function(user) {
-    if(!user) {
-      res.status(400).send(req.params.Username + " was not found!");
-    } else {
-      res.status(200).send(req.params.Username + " was deleted!");
+      res.status(200).send(req.params.Username + " was deleted.");
     }
   })
   .catch(function(err) {
@@ -333,8 +303,20 @@ app.delete("/users/:Username", passport.authenticate('jwt', { session: false }),
   });
 });
 
-// Listen for requests
-var port = process.env.PORT || 3000;
-app.listen(port, "0.0.0.0", function () {
-  console.log("Listening on Port 3000.")
+app.use((err, req, res, next) => {
+  var logEntryTimestamp = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '');
+  var logEntry = `${logEntryTimestamp} - Error: ${err.stack}`;
+  console.error(logEntry);
+  res.status(500).send('Please Stand By!');
 });
+  
+// Listen for requests
+
+var port = process.env.PORT || 3000;
+app.listen(port, "0.0.0.0", function() {
+console.log("Listening on Port 3000");
+});
+
+// app.listen(8080, function() {
+//   console.log('Your app is listening on port 8080');
+// });

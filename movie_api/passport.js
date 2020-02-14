@@ -1,4 +1,4 @@
-// Rearranged code based on CF-provided examples
+// Rearranged and reorganized this file
 
 const passport = require('passport'),
   LocalStrategy = require('passport-local').Strategy,
@@ -20,14 +20,14 @@ passport.use(new LocalStrategy({
       return callback(error);
     }
     if (!user) {
-      console.log('incorrect username');
+      console.log('Incorrect username');
       return callback(null, false, {message: 'Incorrect username or password.'});
     }
     if (!user.validatePassword(password)) {
-      console.log('incorrect password');
+      console.log('Incorrect password');
       return callback(null, false, {message: 'Incorrect password.'});
     }
-    console.log('finished');
+    console.log('Finished');
     return callback(null, user);
   });
 }));
