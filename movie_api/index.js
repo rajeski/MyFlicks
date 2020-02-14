@@ -1,4 +1,4 @@
-// Rearranged and reorganized this file
+// Rearranged and reorganized this file prior to Heroku hosting
 
 const express = require('express'),
   bodyParser = require('body-parser'),
