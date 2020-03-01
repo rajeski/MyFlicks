@@ -56,6 +56,22 @@ app.use(function(err, req, res, next) {
   console.error(err.stack);
   res.status(500).send('An error occured');
 });
+
+mongoose.connect(`mongodb+srv://rajeski:testPassword@myflicksdb-vrzhr.mongodb.net/test?retryWrites=true&w=majority`, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  })
+  .then(() => {
+    console.log('connected to the database');
+  })
+  .catch((error) => {
+    console.group();
+    console.log('error connecting to the database: ', error.message);
+    console.log('Error name: ', error.name);
+    console.log('Error Reason: ', error.reason);
+    console.groupEnd();
+    process.exit(1);
+  });
   
 // POST users' request 
 
