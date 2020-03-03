@@ -75,44 +75,29 @@ mongoose.connect(`mongodb+srv://rajeski:testPassword@myflicksdb-vrzhr.mongodb.ne
   
 // POST users' request 
 
-app.post('/users',
-  // Validation logic 
-  [check('Username', 'Username is required').isLength({min: 5}),
-  check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
-  check('Password', 'Password is required').not().isEmpty(),
-  check('Email', 'Email does not appear to be valid').isEmail()],
-  (req, res) => {
-
-  // Check validation object for errors
-  var errors = validationResult(req);
-
-  if (!errors.isEmpty()) {
-    return res.status(422).json({ errors: errors.array() });
-  }
-
-  var hashedPassword = Users.hashPassword(req.body.Password);
-  Users.findOne({ Username : req.body.Username }) // Search if username already exists
+app.post('/users', 
+function(req, res) {
+  Users.findOne( {Username : req.body.Username })
   .then(function(user) {
     if (user) {
-      // If user is found, send a response "already exists" 
-        return res.status(400).send(req.body.Username + " already exists");
+      return res.status(400).send(req.body.Username + "already exists"); 
     } else {
-      Users
+      Users 
       .create({
-        Username : req.body.Username,
-        Password: hashedPassword,
-        Email : req.body.Email,
-        Birthday : req.body.Birthday
+        Username: req.body.Username, 
+        Password: req.body.Password, 
+        Email: req.body.Email, 
+        Birthday: req.body.Birthday  
       })
       .then(function(user) { res.status(201).json(user) })
       .catch(function(error) {
-          console.error(error);
-          res.status(500).send("Error: " + error);
-      });
-    }
+        console.error(error);
+        res.status(500).send("Error: " + error);
+      })
+    }   
   }).catch(function(error) {
     console.error(error);
-    res.status(500).send("Error: " + error);
+    res.status(500).send("Error : + error");
   });
 });
 
