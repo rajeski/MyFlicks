@@ -30077,11 +30077,6 @@ module.exports = require('./lib/axios');
 },{"./lib/axios":"../node_modules/axios/lib/axios.js"}],"components/main-view/main-view.jsx":[function(require,module,exports) {
 "use strict";
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.MainView = void 0;
-
 var _react = _interopRequireDefault(require("react"));
 
 var _axios = _interopRequireDefault(require("axios"));
@@ -30110,51 +30105,31 @@ var MainView = /*#__PURE__*/function (_React$Component) {
   _inherits(MainView, _React$Component);
 
   function MainView() {
+    var _this;
+
     _classCallCheck(this, MainView);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(MainView).apply(this, arguments));
-  }
+    // Call the superclass constructor
+    // so React can initialize it
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(MainView).call(this)); // Initialize the state to an empty object so we can destructure it later
+
+    _this.state = {};
+    return _this;
+  } // This overrides the render() method of the superclass
+  // No need to call super() though, as it does nothing by default
+
 
   _createClass(MainView, [{
-    key: "componentDidMount",
-    // One of the "hooks" available in a React Component
-    value: function componentDidMount() {
-      var _this = this;
-
-      _axios.default.get('<my-api-endpoint/movies>').then(function (response) {
-        // Assign the result to the state
-        _this.setState({
-          movies: response.data
-        });
-      }).catch(function (error) {
-        console.log(error);
-      });
-    }
-  }, {
     key: "render",
     value: function render() {
-      // If the state isn't initialized, this will throw on runtime
-      // before the data is initially loaded
-      var movies = this.state.movies; // Before the movies have been loaded
-
-      if (!movies) return _react.default.createElement("div", {
-        className: "main-view"
-      });
       return _react.default.createElement("div", {
         className: "main-view"
-      }, movies.map(function (movie) {
-        return _react.default.createElement("div", {
-          className: "movie-card",
-          key: movie._id
-        }, movie.Title);
-      }));
+      });
     }
   }]);
 
   return MainView;
 }(_react.default.Component);
-
-exports.MainView = MainView;
 },{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js"}],"../../../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
 var bundleURL = null;
 
