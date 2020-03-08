@@ -30110,20 +30110,28 @@ var MainView = /*#__PURE__*/function (_React$Component) {
   _inherits(MainView, _React$Component);
 
   function MainView() {
+    var _this;
+
     _classCallCheck(this, MainView);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(MainView).apply(this, arguments));
-  }
+    // Call the superclass constructor
+    // so React can initialize it
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(MainView).call(this)); // Initialize the state to an empty object so we can destructure it later
+
+    _this.state = {};
+    return _this;
+  } // One of the "hooks" available in a React Component
+
 
   _createClass(MainView, [{
     key: "componentDidMount",
-    // One of the "hooks" available in a React Component
     value: function componentDidMount() {
-      var _this = this;
+      var _this2 = this;
 
-      _axios.default.get('<my-api-endpoint/movies>').then(function (response) {
-        // Assign the result to the state
-        _this.setState({
+      _axios.default.get('https://stark-harbor-92573.herokuapp.com/movies').then(function (response) {
+        console.log(response.data); // Assign the result to the state
+
+        _this2.setState({
           movies: response.data
         });
       }).catch(function (error) {
@@ -30310,7 +30318,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50013" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50811" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
