@@ -29,7 +29,7 @@ app.use(cors({
   }
 }));
 
-mongoose.connect('mongodb://localhost:27017/MyFlicksDB', { useNewUrlParser: true });
+// mongoose.connect('mongodb://localhost:27017/MyFlicksDB', { useNewUrlParser: true });
 
 const morgan = require('morgan');
 
