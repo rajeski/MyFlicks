@@ -103,7 +103,7 @@ app.post('/users',
 
 // POST Add movie, user's favorites' list 
 app.post('/users/:Username/Movies/:MovieID',
-  passport.authenticate('jwt', { session: false }),
+  // passport.authenticate('jwt', { session: false }), // Removed for testing
   function (req, res) {
     Users.findOneAndUpdate({ Username: req.params.Username }, {
       $push: { FavoriteMovies: req.params.MovieID }
