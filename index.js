@@ -57,7 +57,7 @@ app.use(function (err, req, res, next) {
   res.status(500).send('An error occured');
 });
 
-mongoose.connect(`mongodb+srv://rajeski:testPassword@myflicksdb-vrzhr.mongodb.net/test?retryWrites=true&w=majority`, {
+mongoose.connect(process.env.CONNECTION_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })
