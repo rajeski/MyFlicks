@@ -10,7 +10,7 @@ require('./passport');
 const { check, validationResult } = require('express-validator');
 
 const Models = require('./models.js');
-const Movies = Models.Movie;
+const Movie = Models.Movie;
 const Users = Models.User;
 
 const app = express();
@@ -202,7 +202,7 @@ app.get('/director/:Name',
 app.get('/movies',
   // passport.authenticate('jwt', { session: false }),
   function (req, res) {
-    Movies.find()
+    Movie.find()
       .then(function (movies) {
         res.status(201).json(movies)
       }).catch(function (err) {
