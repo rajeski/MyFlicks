@@ -200,7 +200,7 @@ app.get('/director/:Name',
 // READ GET movies
 
 app.get('/movies',
-  passport.authenticate('jwt', { session: false }),
+  // passport.authenticate('jwt', { session: false }),
   function (req, res) {
     Movie.find()
       .then(function (movies) {
