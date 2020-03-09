@@ -120,7 +120,7 @@ app.post('/users/:Username/Movies/:MovieID',
   });
 
 app.post('/movies',
-  passport.authenticate('jwt', { session: false }),
+  // passport.authenticate('jwt', { session: false }), // Removed for testing
   function (req, res) {
     Movie.create({
       Title: req.body.Title,
