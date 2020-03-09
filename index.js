@@ -202,7 +202,7 @@ app.get('/director/:Name',
 app.get('/movies',
   // passport.authenticate('jwt', { session: false }),
   function (req, res) {
-    Movie.find()
+    Movies.find()
       .then(function (movies) {
         res.status(201).json(movies)
       }).catch(function (err) {
@@ -214,7 +214,7 @@ app.get('/movies',
 // READ GET single movie by title
 
 app.get('/movies/:Title',
-  passport.authenticate('jwt', { session: false }),
+  // passport.authenticate('jwt', { session: false }),
   function (req, res) {
     Movie.findOne({
       Title: req.params.Title
