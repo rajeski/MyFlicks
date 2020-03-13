@@ -12,11 +12,25 @@ const { check, validationResult } = require('express-validator');
 const Models = require('./models.js');
 const Movie = Models.Movie;
 const Users = Models.User;
-
 const app = express();
 const cors = require('cors');
+const allowedOrigins = ['http://localhost:1234', 'http://localhost:8080', 'http://testsite.com'];
 
-var allowedOrigins = ['http://localhost:1234', 'http://localhost:8080', 'http://testsite.com'];
+mongoose.connect(process.env.CONNECTION_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
+  .then(() => {
+    console.log('connected to the database');
+  })
+  .catch((error) => {
+    console.group();
+    console.log('error connecting to the database: ', error.message);
+    console.log('Error name: ', error.name);
+    console.log('Error Reason: ', error.reason);
+    console.groupEnd();
+    process.exit(1);
+  });
 
 app.use(cors({
   origin: function (origin, callback) {
@@ -57,22 +71,6 @@ app.use(function (err, req, res, next) {
   res.status(500).send('An error occured');
 });
 
-mongoose.connect(process.env.CONNECTION_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-})
-  .then(() => {
-    console.log('connected to the database');
-  })
-  .catch((error) => {
-    console.group();
-    console.log('error connecting to the database: ', error.message);
-    console.log('Error name: ', error.name);
-    console.log('Error Reason: ', error.reason);
-    console.groupEnd();
-    process.exit(1);
-  });
-
 // POST users' request 
 
 app.post('/users',
@@ -82,10 +80,11 @@ app.post('/users',
         if (user) {
           return res.status(400).send(req.body.Username + "already exists");
         } else {
+          const hashedPassword = Users.hashedPassword(req.body.Password)
           Users
             .create({
               Username: req.body.Username,
-              Password: req.body.Password,
+              Password: hashedPassword,
               Email: req.body.Email,
               Birthday: req.body.Birthday
             })
@@ -160,6 +159,26 @@ app.put('/users/:Username',
         }
       })
   });
+
+// READ GET single user
+
+app.get('/users/:Username',
+  passport.authenticate('jwt', {
+    session: false
+  }),
+  function (req, res) {
+    Users.findOne({
+      Username: req.params.Username
+    })
+      .then((user) => {
+        res.json(user);
+      })
+      .catch((error) => {
+        console.error(error);
+        res.status(500).send("Error: " + error);
+      });
+  }
+);
 
 // READ GET genres
 
