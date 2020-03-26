@@ -1,3 +1,30 @@
+.container {
+  margin: 35px auto;
+}
+
+.main-title {
+  color: #5b4af7;
+}
+
+.main-view {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.added {
+  color: #4cf592;
+  display: inline;
+}
+
+.movie-card {
+  margin: 0 auto;
+}
+
+.card {
+  margin: 5px;
+}
+
 .my-flix {
   color: steelblue;
 }
