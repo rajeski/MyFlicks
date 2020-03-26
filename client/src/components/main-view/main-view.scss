@@ -5,3 +5,9 @@
   .main-title{
     color: #5b4af7;
   }
+
+  .main-view {
+    display: flex;
+    flex-wrap: wrap; 
+    justify-content: center;
+  }
