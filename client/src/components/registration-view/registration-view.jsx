@@ -1,11 +1,12 @@
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import axios from 'axios'
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
-import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+// import Row from 'react-bootstrap/Row'; Unsure if these go here?
+// import Col from 'react-bootstrap/Col'; "
 import './registration-view.scss';
-import axios from 'axios'
-
 
 export function RegistrationView(props) {
     const [username, createUsername] = useState('');
@@ -13,11 +14,25 @@ export function RegistrationView(props) {
     const [email, createEmail] = useState('');
     const [birthday, createDob] = useState('');
 
-    const handleSubmit = (e) => {
+    const handleRegister = (e) => {
         e.preventDefault();
-        console.log(username, password, birthday, email);
-        // Send authentication request to the server
-        props.onLoggedIn(username);
+
+        axios.post('https://stark-harbor-92573.herokuapp.com/movies', {
+            Username: username,
+            Password: password,
+            Email: email,
+            Birthday: birthdat
+        })
+            .then(response => {
+                const data = response.data;
+                console.log(data);
+                alert('Success. Please log in')
+                window.open('/', '_self'); // Open in current tab 
+            })
+            .catch(error => {
+                console.log('Registration error. Username must be a minimum of five characters in length')
+                return alert('Registration failure. Please select a username with a minimum of 5 characters');
+            });
     };
 
     return (
