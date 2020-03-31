@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Button from "react-bootstrap/Button";
-import Container from "react-bootstrap/Container";
 import Card from 'react-bootstrap/Card';
+import Container from "react-bootstrap/Container";
 import { Link } from "react-router-dom";
 
 import "./profile-view.scss";
@@ -62,7 +62,7 @@ export class ProfileView extends Component {
                 localStorage.clear();
             })
             .catch((e) => {
-                console.log("error registering the user");
+                console.log("User registeration error");
             });
     }
 
@@ -133,12 +133,12 @@ export class ProfileView extends Component {
                         <Button
                             className="delete-button"
                             onClick={this.deleteProfile}>
-                            Delete Profile
+                            Delete My Profile
                         </Button>
                         <Link to={"/update"}>
                             <Button
                                 className="update-button">
-                                Update Profile
+                                Update My Profile
                         </Button>
                         </Link>
                     </div>

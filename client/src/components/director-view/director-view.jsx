@@ -24,7 +24,7 @@ function DirectorView(props) {
                 <Col md={{ span: 6, offset: 3 }}>
                     <Card className="director-card">
                         <div className="movie-director">
-                            <h2 className="director-title">Director Info</h2>
+                            <h2 className="director-title">Director's Info</h2>
                             <div className="director-name">
                                 <span className="label">Name: </span>
                                 <span className="value">{movie.director.name}</span>

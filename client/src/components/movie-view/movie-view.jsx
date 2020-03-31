@@ -1,42 +1,60 @@
 import React from 'react';
+import Button from "react-bootstrap/Button";
+import Card from 'react-bootstrap/Card';
+import Container from "react-bootstrap/Container";
+import { Link } from "react-router-dom";
 
-export class MovieView extends React.Component {
+import "./movie-view.scss"
 
-    constructor() {
-        super();
+function MovieView(props) {
 
-        this.state = {};
-    }
+    const { movies, movieId } = props;
 
-    render() {
-        const { movie, onClick } = this.props;
+    if (!movies || !movies.length) return null;
 
-        if (!movie) return null;
-
-        return (
-            <div className="movie-view">
-                <img className="movie-poster" src={movie.ImagePath} />
-                <div className="movie-title">
-                    <span className="label">Title: </span>
-                    <span className="value">{movie.Title}</span>
-                </div>
-                <div className="movie-description">
-                    <span className="label">Description: </span>
-                    <span className="value">{movie.Description}</span>
-                </div>
-
-                <div className="movie-genre">
-                    <span className="label">Genre: </span>
-                    <span className="value">{movie.Genre.Name}</span>
-                </div>
-                <div className="movie-director">
-                    <span className="label">Director: </span>
-                    <span className="value">{movie.Director.Name}</span>
-                </div>
-                <button onClick={() => onClick(null)} >Back</button>
-            </div>
+    const movie = movies.find(movie => movie._id === movieId);
 
 
-        );
-    }
+    return (
+        <Container>
+            <Row>
+                <Col md={{ span: 6, offset: 3 }}>
+                    <Card className="movie-view-card">
+                        <div className="movie-view">
+                            <img className="movie-poster" style={{ textAlign: "center" }} src={movie.image} />
+                            <div className="movie-title">
+                                <span className="label">Title: </span>
+                                <span className="value">{movie.title}</span>
+                            </div>
+                            <div className="movie-description">
+                                <span className="label">Description: </span>
+                                <span className="value">{movie.description}</span>
+                            </div>
+
+                            <div className="movie-genre">
+                                <span className="label">Genre: </span>
+                                <span className="value">{movie.genre.name}</span>
+                            </div>
+                            <div className="movie-director">
+                                <span className="label">Director: </span>
+                                <span className="value">{movie.director.name}</span>
+                            </div>
+                            <div className="buttons-container">
+                                <Link to={"/"}>
+                                    <Button variant="primary" className="back-button">
+                                        Go Back</Button>
+                                </Link>
+                                <Link to={"/genres/" + movie.genre.name}>
+                                    <Button variant="link">Genre</Button>
+                                </Link>
+                                <Link to={"/directors/" + movie.director.name}>
+                                    <Button variant="link">Director</Button>
+                                </Link>
+                            </div>
+                        </div>
+                    </Card>
+                </Col>
+            </Row>
+        </Container>
+    );
 }
