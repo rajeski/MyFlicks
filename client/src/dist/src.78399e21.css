@@ -1,14 +1,24 @@
-.added {
-  color: #4cf592;
-  display: inline;
+.movie-view-card {
+  padding: 25px;
 }
-
-.movie-card {
-  margin: 0 auto;
+.movie-view-card .movie-view {
+  text-align: center;
 }
-
-.card {
-  margin: 5px;
+.movie-view-card .movie-view .label {
+  font-weight: 600;
+}
+.movie-view-card .movie-view .movie-title,
+.movie-view-card .movie-view .movie-description,
+.movie-view-card .movie-view .movie-genre,
+.movie-view-card .movie-view .movie-director,
+.movie-view-card .movie-view .back-button {
+  text-align: left;
+}
+.movie-view-card .movie-view .buttons-container {
+  padding: 10px 0 0 0;
+}
+.movie-view-card img {
+  width: 300px;
 }
 .movie-view-card {
   padding: 25px;
@@ -32,6 +42,16 @@
 .movie-view-card img {
   width: 275px;
 }
+.registrationForm {
+  max-width: 500px;
+  margin: 0px auto;
+}
+.registrationForm .registration-card {
+  padding: 25px;
+}
+.registrationForm .registration-card .registration-title {
+  text-align: center;
+}
 .container {
   margin: 35px auto;
 }
@@ -46,17 +66,27 @@
   justify-content: center;
 }
 
-.added {
-  color: #4cf592;
-  display: inline;
+.movie-view-card {
+  padding: 25px;
 }
-
-.movie-card {
-  margin: 0 auto;
+.movie-view-card .movie-view {
+  text-align: center;
 }
-
-.card {
-  margin: 5px;
+.movie-view-card .movie-view .label {
+  font-weight: 600;
+}
+.movie-view-card .movie-view .movie-title,
+.movie-view-card .movie-view .movie-description,
+.movie-view-card .movie-view .movie-genre,
+.movie-view-card .movie-view .movie-director,
+.movie-view-card .movie-view .back-button {
+  text-align: left;
+}
+.movie-view-card .movie-view .buttons-container {
+  padding: 10px 0 0 0;
+}
+.movie-view-card img {
+  width: 300px;
 }
 
 .my-flix {
