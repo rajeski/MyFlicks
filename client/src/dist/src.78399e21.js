@@ -35843,7 +35843,7 @@ function RegistrationView(props) {
   var handleRegister = function handleRegister(e) {
     e.preventDefault();
 
-    _axios.default.post('https://stark-harbor-92573.herokuapp.com/movies', {
+    _axios.default.post('https://stark-harbor-92573.herokuapp.com/users', {
       Username: username,
       Password: password,
       Email: email,
@@ -35860,62 +35860,57 @@ function RegistrationView(props) {
   };
 
   return _react.default.createElement(_Container.default, {
-    className: "registrationContainer"
-  }, _react.default.createElement(_Form.default, {
     className: "registrationForm"
-  }, _react.default.createElement(_Form.default.Group, {
-    controlId: "formBasicEmail"
-  }, _react.default.createElement(_Form.default.Label, null, "Email address"), _react.default.createElement(_Form.default.Control, {
-    type: "email",
-    placeholder: "Enter email",
-    value: email,
-    onChange: function onChange(e) {
-      return createEmail(e.target.value);
-    }
-  }), _react.default.createElement(_Form.default.Text, {
-    className: "emailShare"
-  }, "Your personal information will never be shared with any third-party.")), _react.default.createElement(_Form.default.Group, {
+  }, _react.default.createElement(_Card.default, {
+    className: "registration-card"
+  }, _react.default.createElement("h2", {
+    className: "registration-title"
+  }, "Register"), _react.default.createElement(_Form.default, null, _react.default.createElement(_Form.default.Group, {
     controlId: "formBasicUsername"
   }, _react.default.createElement(_Form.default.Label, null, "Username"), _react.default.createElement(_Form.default.Control, {
     type: "text",
     placeholder: "Username",
     value: username,
     onChange: function onChange(e) {
-      return createUsername(e.target.value);
+      return setUsername(e.target.value);
     }
   })), _react.default.createElement(_Form.default.Group, {
     controlId: "formBasicPassword"
   }, _react.default.createElement(_Form.default.Label, null, "Password"), _react.default.createElement(_Form.default.Control, {
     type: "password",
-    placeholder: "Passwordy",
+    placeholder: "Password",
     value: password,
     onChange: function onChange(e) {
-      return createPassword(e.target.value);
+      return setPassword(e.target.value);
     }
   })), _react.default.createElement(_Form.default.Group, {
+    controlId: "formBasicEmail"
+  }, _react.default.createElement(_Form.default.Label, null, "Email address"), _react.default.createElement(_Form.default.Control, {
+    type: "email",
+    placeholder: "Enter email",
+    value: email,
+    onChange: function onChange(e) {
+      return setEmail(e.target.value);
+    }
+  }), _react.default.createElement(_Form.default.Text, {
+    className: "emailShare"
+  }, "Your personal information will never be shared!")), _react.default.createElement(_Form.default.Group, {
     controlId: "formBasicDob"
   }, _react.default.createElement(_Form.default.Label, null, "Date of Birth"), _react.default.createElement(_Form.default.Control, {
     type: "date",
-    placeholder: "01/01/1985",
-    value: birthday,
+    value: birthdate,
     onChange: function onChange(e) {
-      return createDob(e.target.value);
+      return setBirthDate(e.target.value);
     }
-  })), _react.default.createElement(_Form.default.Group, {
-    controlId: "formBasicChecbox"
-  }, _react.default.createElement(_Form.default.Check, {
-    type: "checkbox",
-    label: "Checking this means you are in good company"
   })), _react.default.createElement(_Button.default, {
     variant: "primary",
     type: "submit",
     onClick: handleSubmit
-  }, "Get started!"), _react.default.createElement(_Button.default, {
-    variant: "primary",
-    onClick: function onClick() {
-      return props.onClick();
-    }
-  }, "Existing user?")));
+  }, "Sign-up"), _react.default.createElement(_Form.default.Text, {
+    className: "text-muted"
+  }, "Existing user? Log-in ", _react.default.createElement(_reactRouterDom.Link, {
+    to: "/"
+  }, "CLICK")))));
 }
 },{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","react-bootstrap/Card":"../node_modules/react-bootstrap/esm/Card.js","react-bootstrap/Container":"../node_modules/react-bootstrap/esm/Container.js","react-bootstrap/Form":"../node_modules/react-bootstrap/esm/Form.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","./registration-view.scss":"components/registration-view/registration-view.scss"}],"components/main-view/main-view.jsx":[function(require,module,exports) {
 "use strict";
@@ -36218,7 +36213,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53819" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55646" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

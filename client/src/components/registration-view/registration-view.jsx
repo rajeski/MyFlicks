@@ -17,7 +17,7 @@ export function RegistrationView(props) {
     const handleRegister = (e) => {
         e.preventDefault();
 
-        axios.post('https://stark-harbor-92573.herokuapp.com/movies', {
+        axios.post('https://stark-harbor-92573.herokuapp.com/users', {
             Username: username,
             Password: password,
             Email: email,
