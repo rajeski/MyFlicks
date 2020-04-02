@@ -36073,7 +36073,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
             });
           }
 
-          return _react.default.createElement(MoviesList, {
+          return _react.default.createElement(MovieList, {
             movies: movies
           });
         }
@@ -36218,7 +36218,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61128" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53819" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
