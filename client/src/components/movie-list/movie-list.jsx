@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import { MovieCard } from '../movie-card/movie-card';
@@ -15,31 +14,29 @@ const mapStateToProps = state => {
     return { movies: filteredMovies };
 };
 
-function MoviesList(props) {
+function MovieList(props) {
     const { movies } = props;
 
     if (!movies) {
-        return <div className="main-view" />;
+        return <div><p>... please stand-by... loading</p></div>;
     }
 
-    return <div className="movies-list">
-        <VisibilityFilterInput />
+    return (
         <Row>
-
-            {movies.map(m => {
+            {movies.map(movie => {
                 return (
-                    <Col key={m._id} xs={12} sm={6} md={4}>
+                    <Col key={movie._id} xs={12} sm={6} md={4}>
                         <MovieCard
-                            key={m._id}
-                            value={m._id}
-                            movie={m}
+                            key={movie._id}
+                            value={movie._id}
+                            movie={movie}
                             addFavorites={movieId => this.addToFavorites(movieId)} />
                     </Col>
                 );
             })
             }
         </Row>
-    </div>
+    )
 }
 
-export default connect(mapStateToProps)(MoviesList);
+export default MovieList;

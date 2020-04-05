@@ -2,9 +2,11 @@ import { Route, BrowserRouter as Router } from 'react-router-dom';
 import { LoginView } from '../login-view/login-view';
 import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
+import { MovieList } from '../movie-list/movie-list';
 import React from 'react';
 import { RegistrationView } from '../registration-view/registration-view';
 import axios from 'axios';
+
 export class MainView extends React.Component {
     constructor() {
         super();
@@ -17,12 +19,13 @@ export class MainView extends React.Component {
         let accessToken = localStorage.getItem('token');
         if (accessToken !== null) {
             this.setState({
-                user: localStorage.getItem('user'),
+                user: this.getUser(accessToken),
             });
             this.getMovies(accessToken);
+            localStorage.setItem('user', this.state.user);
         }
     }
-    getUser(token) {
+    getUser = (token) => {
         let username = localStorage.getItem('user');
         const userURL = 'https://stark-harbor-92573.herokuapp.com/users/';
         axios
@@ -62,7 +65,8 @@ export class MainView extends React.Component {
             user: authData.user.Username,
         });
         localStorage.setItem('token', authData.token);
-        localStorage.setItem('user', authData.user.Username);
+        localStorage.setItem('user', authData.user);
+        localStorage.setItem('favorites', authData.user.FavoriteMovies);
         this.getMovies(authData.token);
     }
     onLogOut() {
@@ -71,12 +75,11 @@ export class MainView extends React.Component {
         localStorage.removeItem('token');
     }
     render() {
-        const { user } = this.state;
-        const { movies } = this.props;
+        const { user, movies } = this.state;
         // if (!movies) return <div className='main-view' />;
         return (
             <div className='main-view'>
-                <Router basename='/client'>
+                <Router>
                     {/* <Navbar bg='dark' variant='dark'>
             <Link to={'/'}>
               <Navbar.Brand className='main-title'>MyFlix</Navbar.Brand>

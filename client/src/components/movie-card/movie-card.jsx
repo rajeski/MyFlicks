@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
@@ -15,10 +15,10 @@ export const MovieCard = (props) => {
     const addFavorites = (e) => {
         e.preventDefault();
         const url = 'https://stark-harbor-92573.herokuapp.com/users/';
-        const user = localStorage.getItem("user");
+        const user = localStorage.getItem('user');
         const addMovie = `${url}${user}/Movies/${movie._id}`;
 
-        let favArr = localStorage.getItem("favorites");
+        let favArr = localStorage.getItem('favorites');
         let favorites = favArr ? JSON.parse(favArr) : [];
 
         axios.post(addMovie, {
@@ -42,22 +42,22 @@ export const MovieCard = (props) => {
     }
 
     return (
-        <Card className="mb-3 mb-sm-4 movie-card" style={{
+        <Card className='mb-3 mb-sm-4 movie-card' style={{
             width: '16rem'
         }}>
-            <Card.Img variant="top" src={movie.image} />
+            <Card.Img variant='top' src={movie.image} />
             <Card.Body>
                 <Card.Title>{movie.title}</Card.Title>
                 <Card.Text>{movie.description}</Card.Text>
-                <Link to={"/movies/" + movie._id}>
-                    <Button variant="link">Open</Button>
+                <Link to={'/movies/' + movie._id}>
+                    <Button variant='link'>Open</Button>
                 </Link>
-                {!localStorage.getItem("favorites").includes(movie._id)
+                {localStorage.getItem('favorites').includes(movie._id) === null
                     ? (
-                        <Button variant="link" value={movie.title} onClick={addFavorites}>Add to Favorites</Button>
+                        <Button variant='link' value={movie.title} onClick={addFavorites}>Add to Favorites</Button>
                     )
                     : (
-                        <p className="added">Added to My Favorites</p>
+                        <p className='added'>Added to My Favorites</p>
                     )
                 }
             </Card.Body>
@@ -69,13 +69,18 @@ MovieCard.propTypes = {
     movie: PropTypes.shape({
         Title: PropTypes.string.isRequired,
         Description: PropTypes.string.isRequired,
-        Director: PropTypes.string.isRequired,
-        Genre: PropTypes.string.isRequired,
-        Year: PropTypes.string.isRequired,
-        Bio: PropTypes.string.isRequired,
-        Birth: PropTypes.string.isRequired,
-        Death: PropTypes.string.isRequired,
-        ImagePath: PropTypes.string.isRequired
+        Featured: PropTypes.bool.isRequired,
+        ImagePath: PropTypes.string.isRequired,
+        Director: PropTypes.shape({
+            Name: PropTypes.string.isRequired,
+            Bio: PropTypes.string.isRequired,
+            Birth: PropTypes.string.isRequired,
+            Death: PropTypes.string.isRequired,
+        }),
+        Genre: PropTypes.shape({
+            Name: PropTypes.string.isRequired,
+            Description: PropTypes.string.isRequired,
+        }),
     }).isRequired,
-    onClick: PropTypes.func.isRequired
+    addFavorites: PropTypes.func.isRequired
 };

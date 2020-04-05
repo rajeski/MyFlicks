@@ -14,7 +14,7 @@ export function RegistrationView(props) {
     const [email, createEmail] = useState('');
     const [birthday, createDob] = useState('');
 
-    const handleRegister = (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
 
         axios.post('https://stark-harbor-92573.herokuapp.com/users', {
@@ -57,7 +57,7 @@ export function RegistrationView(props) {
                     </Form.Group>
                     <Form.Group controlId="formBasicDob">
                         <Form.Label>Date of Birth</Form.Label>
-                        <Form.Control type="date" value={birthdate} onChange={e => setBirthDate(e.target.value)} />
+                        <Form.Control type="date" value={birthday} onChange={e => setBirthDate(e.target.value)} />
                     </Form.Group>
                     <Button variant="primary" type="submit" onClick={handleSubmit}>
                         Sign-up
