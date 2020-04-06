@@ -2,7 +2,7 @@ import { Route, BrowserRouter as Router } from 'react-router-dom';
 import { LoginView } from '../login-view/login-view';
 import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
-import { MovieList } from '../movie-list/movie-list';
+import MovieList from '../movie-list/movie-list';
 import React from 'react';
 import { RegistrationView } from '../registration-view/registration-view';
 import axios from 'axios';
@@ -19,7 +19,7 @@ export class MainView extends React.Component {
         let accessToken = localStorage.getItem('token');
         if (accessToken !== null) {
             this.setState({
-                user: this.getUser(accessToken),
+                user: localStorage.getItem('user'),
             });
             this.getMovies(accessToken);
             localStorage.setItem('user', this.state.user);
@@ -33,7 +33,7 @@ export class MainView extends React.Component {
                 headers: { Authorization: `Bearer ${token}` },
             })
             .then(response => {
-                this.props.setLoggedInUser(response.data);
+                // this.props.setLoggedInUser(response.data);
                 this.setState({
                     username: response.data.Username,
                     email: response.data.Email,
@@ -65,7 +65,7 @@ export class MainView extends React.Component {
             user: authData.user.Username,
         });
         localStorage.setItem('token', authData.token);
-        localStorage.setItem('user', authData.user);
+        localStorage.setItem('user', authData.user.Username);
         localStorage.setItem('favorites', authData.user.FavoriteMovies);
         this.getMovies(authData.token);
     }
@@ -118,7 +118,10 @@ export class MainView extends React.Component {
                         exact
                         path='/movies/:movieId'
                         render={({ match }) => {
-                            return <MovieView movieId={match.params.movieId} />;
+                            return (<MovieView
+                                movieId={match.params.movieId}
+                                movies={this.state.movies} />
+                            );
                         }}
                     />
                     <Route

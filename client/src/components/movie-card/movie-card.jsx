@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
+import Image from 'react-bootstrap/Image';
 import { Link } from "react-router-dom";
 import axios from 'axios';
 
@@ -47,14 +48,15 @@ export const MovieCard = (props) => {
         }}>
             <Card.Img variant='top' src={movie.image} />
             <Card.Body>
-                <Card.Title>{movie.title}</Card.Title>
-                <Card.Text>{movie.description}</Card.Text>
+                <Card.Title>{movie.Title}</Card.Title>
+                <Image src={ImagePath} rounded />
+                <Card.Text>{movie.Description}</Card.Text>
                 <Link to={'/movies/' + movie._id}>
                     <Button variant='link'>Open</Button>
                 </Link>
                 {localStorage.getItem('favorites').includes(movie._id) === null
                     ? (
-                        <Button variant='link' value={movie.title} onClick={addFavorites}>Add to Favorites</Button>
+                        <Button variant='link' value={movie.Title} onClick={addFavorites}>Add to Favorites</Button>
                     )
                     : (
                         <p className='added'>Added to My Favorites</p>
