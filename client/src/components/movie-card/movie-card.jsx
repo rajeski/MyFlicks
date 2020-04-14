@@ -49,7 +49,7 @@ export const MovieCard = (props) => {
             <Card.Img variant='top' src={movie.image} />
             <Card.Body>
                 <Card.Title>{movie.Title}</Card.Title>
-                <Image src={ImagePath} rounded />
+                <Image src={movie.ImagePath} rounded />
                 <Card.Text>{movie.Description}</Card.Text>
                 <Link to={'/movies/' + movie._id}>
                     <Button variant='link'>Open</Button>
