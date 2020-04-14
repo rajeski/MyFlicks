@@ -80,6 +80,7 @@ app.post('/users',
         if (user) {
           return res.status(400).send(req.body.Username + "already exists");
         } else {
+          console.log(req)
           const hashedPassword = Users.hashedPassword(req.body.Password)
           Users
             .create({
