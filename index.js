@@ -14,7 +14,7 @@ const Movie = Models.Movie;
 const Users = Models.User;
 const app = express();
 const cors = require('cors');
-const allowedOrigins = ['http://localhost:1234', 'http://localhost:8080', 'http://testsite.com'];
+const allowedOrigins = ['http://localhost:1234', 'http://localhost:8080', 'http://testsite.com', '*'];
 
 mongoose.connect(process.env.CONNECTION_URI, {
   useNewUrlParser: true,
