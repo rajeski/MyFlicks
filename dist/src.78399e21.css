@@ -1,3 +1,94 @@
+.movie-view-card {
+  padding: 25px;
+}
+.movie-view-card .movie-view {
+  text-align: center;
+}
+.movie-view-card .movie-view .label {
+  font-weight: 600;
+}
+.movie-view-card .movie-view .movie-title,
+.movie-view-card .movie-view .movie-description,
+.movie-view-card .movie-view .movie-genre,
+.movie-view-card .movie-view .movie-director,
+.movie-view-card .movie-view .back-button {
+  text-align: left;
+}
+.movie-view-card .movie-view .buttons-container {
+  padding: 10px 0 0 0;
+}
+.movie-view-card img {
+  width: 300px;
+}
+.movie-view-card {
+  padding: 25px;
+}
+.movie-view-card .movie-view {
+  text-align: center;
+}
+.movie-view-card .movie-view .label {
+  font-weight: 675;
+}
+.movie-view-card .movie-view .movie-title,
+.movie-view-card .movie-view .movie-description,
+.movie-view-card .movie-view .movie-genre,
+.movie-view-card .movie-view .movie-director,
+.movie-view-card .movie-view .back-button {
+  text-align: left;
+}
+.movie-view-card .movie-view .buttons-container {
+  padding: 10px 0 0 0;
+}
+.movie-view-card img {
+  width: 275px;
+}
+.registrationForm {
+  max-width: 500px;
+  margin: 0px auto;
+}
+.registrationForm .registration-card {
+  padding: 25px;
+}
+.registrationForm .registration-card .registration-title {
+  text-align: center;
+}
+.container {
+  margin: 35px auto;
+}
+
+.main-title {
+  color: #5b4af7;
+}
+
+.main-view {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.movie-view-card {
+  padding: 25px;
+}
+.movie-view-card .movie-view {
+  text-align: center;
+}
+.movie-view-card .movie-view .label {
+  font-weight: 600;
+}
+.movie-view-card .movie-view .movie-title,
+.movie-view-card .movie-view .movie-description,
+.movie-view-card .movie-view .movie-genre,
+.movie-view-card .movie-view .movie-director,
+.movie-view-card .movie-view .back-button {
+  text-align: left;
+}
+.movie-view-card .movie-view .buttons-container {
+  padding: 10px 0 0 0;
+}
+.movie-view-card img {
+  width: 300px;
+}
+
 .my-flix {
   color: steelblue;
 }
