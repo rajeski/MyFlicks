@@ -9,10 +9,10 @@ import { Link } from "react-router-dom";
 import './registration-view.scss';
 
 export function RegistrationView(props) {
-    const [username, createUsername] = useState('');
-    const [password, createPassword] = useState('');
-    const [email, createEmail] = useState('');
-    const [birthday, createDob] = useState('');
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [email, setEmail] = useState('');
+    const [birthday, setBirthDate] = useState('');
 
     const handleSubmit = (e) => {
         e.preventDefault();

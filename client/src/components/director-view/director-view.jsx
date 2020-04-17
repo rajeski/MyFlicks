@@ -16,7 +16,7 @@ function DirectorView(props) {
     const { movies } = props;
     if (!movies || !movies.length) return null;
 
-    const movie = movies.find(movie => movie.director.name);
+    const movie = movies.find(movie => movie.Director.name);
 
     return (
         <Container>
@@ -24,18 +24,18 @@ function DirectorView(props) {
                 <Col md={{ span: 6, offset: 3 }}>
                     <Card className="director-card">
                         <div className="movie-director">
-                            <h2 className="director-title">Director's Info</h2>
+                            <h2 className="director-title">Director Info</h2>
                             <div className="director-name">
                                 <span className="label">Name: </span>
-                                <span className="value">{movie.director.name}</span>
+                                <span className="value">{movie.Director.Name}</span>
                             </div>
                             <div className="director-bio">
                                 <span className="label">Biography: </span>
-                                <span className="value">{movie.director.Bio}</span>
+                                <span className="value">{movie.Director.Bio}</span>
                             </div>
                             <div className="director-dob">
                                 <span className="label">BirthDate: </span>
-                                <span className="value">{movie.director.birth}</span>
+                                <span className="value">{movie.Director.Birth}</span>
                             </div>
                         </div>
                         <Link to={"/"}>

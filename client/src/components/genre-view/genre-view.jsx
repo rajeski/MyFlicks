@@ -16,7 +16,7 @@ function GenreView(props) {
     const { movies } = props;
     if (!movies || !movies.length) return null;
 
-    const movie = movies.find(movie => movie.genre.name);
+    const movie = movies.find(movie => movie.Genre.Name);
     return (
         <Container>
             <Row>
@@ -26,11 +26,11 @@ function GenreView(props) {
                             <h2 className="genre-title">Genre Info</h2>
                             <div className="genre-div">
                                 <span className="label">Genre: </span>
-                                <span className="value">{movie.genre.name}</span>
+                                <span className="value">{movie.Genre.Name}</span>
                             </div>
                             <div className="genre-description">
                                 <span className="label">Description: </span>
-                                <span className="value">{movie.genre.description}</span>
+                                <span className="value">{movie.Genre.Description}</span>
                             </div>
                         </div>
                         <Link to={"/"}>

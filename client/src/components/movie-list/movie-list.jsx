@@ -1,42 +1,27 @@
 import React from 'react';
+import { connect } from 'react-redux';
+
+import VisibilityFilterInput from '../visibility-filter-input/visibility-filter-input';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import { MovieCard } from '../movie-card/movie-card';
 
 const mapStateToProps = state => {
-    const { visibilityFilter, movies } = state;
-    let filteredMovies = movies;
-
-    if (visibilityFilter !== '') {
-        filteredMovies = filteredMovies.filter(m => m.title.toLowerCase().includes(visibilityFilter));
-    }
-
-    return { movies: filteredMovies };
+    const { visibilityFilter } = state;
+    return { visibilityFilter };
 };
 
 function MovieList(props) {
-    const { movies } = props;
+    const { movies, visibilityFilter } = props;
+    let filteredMovies = movies;
 
-    if (!movies) {
-        return <div><p>... please stand-by... loading</p></div>;
+    if (visibilityFilter !== '') {
+        filteredMovies = movies.filter(m => m.Title.includes(visibilityFilter));
     }
 
-    return (
-        <Row>
-            {movies.map(movie => {
-                return (
-                    <Col key={movie._id} xs={12} sm={6} md={4}>
-                        <MovieCard
-                            key={movie._id}
-                            value={movie._id}
-                            movie={movie}
-                            addFavorites={movieId => this.addToFavorites(movieId)} />
-                    </Col>
-                );
-            })
-            }
-        </Row>
-    )
+    if (!movies) return <div className="main-view" />;
+
+    return filteredMovies.map(m => <MovieCard key={m._id} movie={m} />);
 }
 
-export default MovieList;
+export default connect(mapStateToProps)(MovieList);
