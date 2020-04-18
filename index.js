@@ -31,7 +31,7 @@ mongoose.connect(process.env.CONNECTION_URI, {
     console.groupEnd();
     process.exit(1);
   });
-
+ƒ
 app.use(cors({
   origin: function (origin, callback) {
     if (!origin) return callback(null, true);
@@ -81,7 +81,7 @@ app.post('/users',
           return res.status(400).send(req.body.Username + "already exists");
         } else {
           console.log(req)
-          const hashedPassword = Users.hashedPassword(req.body.Password)
+          const hashedPassword = Users.hashPassword(req.body.Password)
           Users
             .create({
               Username: req.body.Username,
