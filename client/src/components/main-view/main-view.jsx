@@ -94,8 +94,7 @@ export class MainView extends React.Component {
 						path="/"
 						render={() => {
 							if (!user)
-								return
-							<LoginView onLoggedIn={user => this.onLoggedIn(user)} />
+								return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
 							return <MovieList movies={movies} />;
 						}}
 					/>
