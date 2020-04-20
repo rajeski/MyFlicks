@@ -38033,33 +38033,33 @@ var MovieCard = function MovieCard(props) {
 
   var addFavorites = function addFavorites(e) {
     e.preventDefault();
-    var url = 'https://stark-harbor-92573.herokuapp.com/users/';
-    var user = localStorage.getItem('user');
+    var url = "https://stark-harbor-92573.herokuapp.com/users/";
+    var user = localStorage.getItem("user");
     var addMovie = "".concat(url).concat(user, "/Movies/").concat(movie._id);
-    var favArr = localStorage.getItem('favorites');
+    var favArr = localStorage.getItem("favorites");
     var favorites = favArr ? JSON.parse(favArr) : [];
 
     _axios.default.post(addMovie, {
       Username: user
     }, {
       headers: {
-        Authorization: "Bearer ".concat(localStorage.getItem('token'))
+        Authorization: "Bearer ".concat(localStorage.getItem("token"))
       }
     }).then(function (response) {
       console.log(response);
     }).catch(function (event) {
-      console.log('Error adding movie to My Favorites');
+      console.log("Error adding movie to My Favorites");
     });
 
     favorites.push(movie._id);
     setFav([].concat(_toConsumableArray(favArray), [movie._id]));
-    localStorage.setItem('favorites', JSON.stringify(favorites));
+    localStorage.setItem("favorites", JSON.stringify(favorites));
   };
 
   return _react.default.createElement(_Card.default, {
     className: "mb-3 mb-sm-4 movie-card",
     style: {
-      width: '16rem'
+      width: "16rem"
     }
   }, _react.default.createElement(_Card.default.Img, {
     variant: "top",
@@ -38068,10 +38068,10 @@ var MovieCard = function MovieCard(props) {
     src: movie.ImagePath,
     rounded: true
   }), _react.default.createElement(_Card.default.Text, null, movie.Description), _react.default.createElement(_reactRouterDom.Link, {
-    to: '/movies/' + movie._id
+    to: "/movies/" + movie._id
   }, _react.default.createElement(_Button.default, {
     variant: "link"
-  }, "Open")), localStorage.getItem('favorites') && localStorage.getItem('favorites').includes(movie._id) ? _react.default.createElement("p", {
+  }, "Open")), localStorage.getItem("favorites") && localStorage.getItem("favorites").includes(movie._id) ? _react.default.createElement("p", {
     className: "added"
   }, "Added to My Favorites") : _react.default.createElement(_Button.default, {
     variant: "link",
@@ -39045,7 +39045,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49356" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50261" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
