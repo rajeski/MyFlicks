@@ -31,7 +31,7 @@ mongoose.connect(process.env.CONNECTION_URI, {
     console.groupEnd();
     process.exit(1);
   });
-ƒ
+
 app.use(cors({
   origin: function (origin, callback) {
     if (!origin) return callback(null, true);
