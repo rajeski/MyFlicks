@@ -38073,9 +38073,11 @@ var MovieCard = function MovieCard(props) {
     variant: "link"
   }, "Open")), localStorage.getItem('favorites') && localStorage.getItem('favorites').includes(movie._id) ? _react.default.createElement("p", {
     className: "added"
-  }, "Added to My Favorites") : _react.default.createElement("p", {
-    className: "added"
-  }, "Added to My Favorites")));
+  }, "Added to My Favorites") : _react.default.createElement(_Button.default, {
+    variant: "link",
+    value: movie.Title,
+    onClick: addFavorites
+  }, "Add to Favorites")));
 };
 
 exports.MovieCard = MovieCard;
@@ -38753,11 +38755,11 @@ var MainView = /*#__PURE__*/function (_React$Component) {
   _createClass(MainView, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      var accessToken = localStorage.getItem('token');
+      var accessToken = localStorage.getItem("token");
 
       if (accessToken !== null) {
         this.setState({
-          user: localStorage.getItem('user')
+          user: localStorage.getItem("user")
         });
         this.getMovies(accessToken); // localStorage.setItem('user', this.state.user);
       }
@@ -38787,7 +38789,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
     value: function getMovies(token) {
       var _this2 = this;
 
-      _axios.default.get('https://stark-harbor-92573.herokuapp.com/movies', {
+      _axios.default.get("https://stark-harbor-92573.herokuapp.com/movies", {
         headers: {
           Authorization: "Bearer ".concat(token)
         }
@@ -38807,8 +38809,8 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       this.setState({
         user: authData.user.Username
       });
-      localStorage.setItem('token', authData.token);
-      localStorage.setItem('user', authData.user.Username); // localStorage.setItem('favorites', authData.user.FavoriteMovies);
+      localStorage.setItem("token", authData.token);
+      localStorage.setItem("user", authData.user.Username); // localStorage.setItem('favorites', authData.user.FavoriteMovies);
 
       this.getMovies(authData.token);
     } // onLogOut() {
@@ -38831,14 +38833,11 @@ var MainView = /*#__PURE__*/function (_React$Component) {
         exact: true,
         path: "/",
         render: function render() {
-          if (!user) return;
-
-          _react.default.createElement(_loginView.LoginView, {
+          if (!user) return _react.default.createElement(_loginView.LoginView, {
             onLoggedIn: function onLoggedIn(user) {
               return _this3.onLoggedIn(user);
             }
           });
-
           return _react.default.createElement(_movieList.default, {
             movies: movies
           });
@@ -39046,7 +39045,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55440" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49356" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
