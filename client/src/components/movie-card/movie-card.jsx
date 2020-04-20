@@ -54,11 +54,10 @@ export const MovieCard = (props) => {
                 <Link to={'/movies/' + movie._id}>
                     <Button variant='link'>Open</Button>
                 </Link>
-                {localStorage.getItem('favorites').includes(movie._id) === null
-                    ? (
-                        <Button variant='link' value={movie.Title} onClick={addFavorites}>Add to Favorites</Button>
-                    )
-                    : (
+                {localStorage.getItem('favorites') &&
+                    localStorage.getItem('favorites').includes(movie._id) ? (
+                        <p className='added'>Added to My Favorites</p>
+                    ) : (
                         <p className='added'>Added to My Favorites</p>
                     )
                 }
@@ -84,5 +83,4 @@ MovieCard.propTypes = {
             Description: PropTypes.string.isRequired,
         }),
     }).isRequired,
-    addFavorites: PropTypes.func.isRequired
 };
