@@ -38237,7 +38237,7 @@ function MovieView(props) {
   var movie = movies.find(function (movie) {
     return movie._id === movieId;
   });
-  console.log("Props", movie);
+  console.log("PROPS", movie);
   return _react.default.createElement(_Container.default, null, _react.default.createElement(_Row.default, null, _react.default.createElement(_Col.default, {
     md: {
       span: 6,
@@ -38247,9 +38247,12 @@ function MovieView(props) {
     className: "movie-view-card"
   }, _react.default.createElement("div", {
     className: "movie-view"
-  }, _react.default.createElement(_Image.default, {
-    src: movie.ImagePath,
-    rounded: true
+  }, _react.default.createElement("img", {
+    className: "movie-poster",
+    style: {
+      textAlign: "center"
+    },
+    src: movie.Image
   }), _react.default.createElement("div", {
     className: "movie-title"
   }, _react.default.createElement("span", {
@@ -39046,7 +39049,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52539" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53907" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

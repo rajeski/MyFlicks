@@ -15,7 +15,7 @@ function MovieView(props) {
   if (!movies || !movies.length) return null;
 
   const movie = movies.find((movie) => movie._id === movieId);
-  console.log("Props", movie);
+  console.log("PROPS", movie);
 
   return (
     <Container>
@@ -23,7 +23,11 @@ function MovieView(props) {
         <Col md={{ span: 6, offset: 3 }}>
           <Card className="movie-view-card">
             <div className="movie-view">
-              <Image src={movie.ImagePath} rounded />
+              <img
+                className="movie-poster"
+                style={{ textAlign: "center" }}
+                src={movie.Image}
+              />
               <div className="movie-title">
                 <span className="label">Title: </span>
                 <span className="value">{movie.Title}</span>
