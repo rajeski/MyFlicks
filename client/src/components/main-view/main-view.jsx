@@ -102,12 +102,16 @@ export class MainView extends React.Component {
           />
           <Route path="/register" render={() => <RegistrationView />} />
           <Route
+            exact
             path="/movies/:movieId"
-            render={({ match }) => (
-              <MovieView
-                movie={movies.find((m) => m._id === match.params.movieId)}
-              />
-            )}
+            render={({ match }) => {
+              return (
+                <MovieView
+                  movieId={match.params.movieId}
+                  movies={this.state.movies}
+                />
+              );
+            }}
           />
           <Route
             path="/directors/:name"

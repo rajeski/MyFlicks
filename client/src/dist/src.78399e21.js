@@ -38237,6 +38237,7 @@ function MovieView(props) {
   var movie = movies.find(function (movie) {
     return movie._id === movieId;
   });
+  console.log("Props", movie);
   return _react.default.createElement(_Container.default, null, _react.default.createElement(_Row.default, null, _react.default.createElement(_Col.default, {
     md: {
       span: 6,
@@ -38848,13 +38849,13 @@ var MainView = /*#__PURE__*/function (_React$Component) {
           return _react.default.createElement(_registrationView.RegistrationView, null);
         }
       }), _react.default.createElement(_reactRouterDom.Route, {
+        exact: true,
         path: "/movies/:movieId",
         render: function render(_ref) {
           var match = _ref.match;
           return _react.default.createElement(_movieView.MovieView, {
-            movie: movies.find(function (m) {
-              return m._id === match.params.movieId;
-            })
+            movieId: match.params.movieId,
+            movies: _this3.state.movies
           });
         }
       }), _react.default.createElement(_reactRouterDom.Route, {
@@ -39045,7 +39046,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50261" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51353" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
