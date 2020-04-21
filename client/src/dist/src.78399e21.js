@@ -38222,14 +38222,13 @@ var _Col = _interopRequireDefault(require("react-bootstrap/Col"));
 
 var _Container = _interopRequireDefault(require("react-bootstrap/Container"));
 
-var _Image = _interopRequireDefault(require("react-bootstrap/Image"));
-
 var _reactRouterDom = require("react-router-dom");
 
 require("./movie-view.scss");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+//import Image from "react-bootstrap/Image"; //This link was not here in the April 6th video and I am unsure what to do with it now?
 function MovieView(props) {
   var movies = props.movies,
       movieId = props.movieId;
@@ -38294,7 +38293,7 @@ function MovieView(props) {
     variant: "link"
   }, "Director"))))))));
 }
-},{"react":"../node_modules/react/index.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","react-bootstrap/Card":"../node_modules/react-bootstrap/esm/Card.js","react-bootstrap/Row":"../node_modules/react-bootstrap/esm/Row.js","react-bootstrap/Col":"../node_modules/react-bootstrap/esm/Col.js","react-bootstrap/Container":"../node_modules/react-bootstrap/esm/Container.js","react-bootstrap/Image":"../node_modules/react-bootstrap/esm/Image.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","./movie-view.scss":"components/movie-view/movie-view.scss"}],"components/login-view/login-view.jsx":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","react-bootstrap/Card":"../node_modules/react-bootstrap/esm/Card.js","react-bootstrap/Row":"../node_modules/react-bootstrap/esm/Row.js","react-bootstrap/Col":"../node_modules/react-bootstrap/esm/Col.js","react-bootstrap/Container":"../node_modules/react-bootstrap/esm/Container.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","./movie-view.scss":"components/movie-view/movie-view.scss"}],"components/login-view/login-view.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -38814,10 +38813,10 @@ var MainView = /*#__PURE__*/function (_React$Component) {
         user: authData.user.Username
       });
       localStorage.setItem("token", authData.token);
-      localStorage.setItem("user", authData.user.Username); // localStorage.setItem('favorites', authData.user.FavoriteMovies);
-
+      localStorage.setItem("user", authData.user.Username);
+      localStorage.setItem("favorites", authData.user.FavoriteMovies);
       this.getMovies(authData.token);
-    } // onLogOut() {
+    } // onLogOut() { This function was active in the April 6th video but I am unsure what to do with it now?
     //     this.setState({ user: null });
     //     localStorage.removeItem('user');
     //     localStorage.removeItem('token');
@@ -39049,7 +39048,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53907" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61168" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

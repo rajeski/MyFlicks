@@ -74,10 +74,10 @@ export class MainView extends React.Component {
     });
     localStorage.setItem("token", authData.token);
     localStorage.setItem("user", authData.user.Username);
-    // localStorage.setItem('favorites', authData.user.FavoriteMovies);
+    localStorage.setItem("favorites", authData.user.FavoriteMovies);
     this.getMovies(authData.token);
   }
-  // onLogOut() {
+  // onLogOut() { This function was active in the April 6th video but I am unsure what to do with it now?
   //     this.setState({ user: null });
   //     localStorage.removeItem('user');
   //     localStorage.removeItem('token');
