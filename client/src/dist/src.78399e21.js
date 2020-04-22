@@ -38814,12 +38814,16 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       localStorage.setItem("user", authData.user.Username);
       localStorage.setItem("favorites", authData.user.FavoriteMovies);
       this.getMovies(authData.token);
-    } // onLogOut() { This function was active in the April 6th video but I am unsure what to do with it now?
-    //     this.setState({ user: null });
-    //     localStorage.removeItem('user');
-    //     localStorage.removeItem('token');
-    // }
-
+    }
+  }, {
+    key: "onLogOut",
+    value: function onLogOut() {
+      this.setState({
+        user: null
+      });
+      localStorage.removeItem("user");
+      localStorage.removeItem("token");
+    }
   }, {
     key: "render",
     value: function render() {
@@ -39049,7 +39053,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63243" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53880" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
