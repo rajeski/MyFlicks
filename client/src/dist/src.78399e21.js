@@ -38064,10 +38064,7 @@ var MovieCard = function MovieCard(props) {
   }, _react.default.createElement(_Card.default.Img, {
     variant: "top",
     src: movie.image
-  }), _react.default.createElement(_Card.default.Body, null, _react.default.createElement(_Card.default.Title, null, movie.Title), _react.default.createElement(_Image.default, {
-    src: movie.ImagePath,
-    rounded: true
-  }), _react.default.createElement(_Card.default.Text, null, movie.Description), _react.default.createElement(_reactRouterDom.Link, {
+  }), _react.default.createElement(_Card.default.Body, null, _react.default.createElement(_Card.default.Title, null, movie.Title), _react.default.createElement(_Card.default.Text, null, movie.Description), _react.default.createElement(_reactRouterDom.Link, {
     to: "/movies/" + movie._id
   }, _react.default.createElement(_Button.default, {
     variant: "link"
@@ -38229,14 +38226,9 @@ require("./movie-view.scss");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 //import Image from "react-bootstrap/Image"; //This link was not here in the April 6th video and I am unsure what to do with it now?
-function MovieView(props) {
-  var movies = props.movies,
-      movieId = props.movieId;
-  if (!movies || !movies.length) return null;
-  var movie = movies.find(function (movie) {
-    return movie._id === movieId;
-  });
-  console.log("PROPS", movie);
+function MovieView(_ref) {
+  var movie = _ref.movie;
+  if (!movie) return null;
   return _react.default.createElement(_Container.default, null, _react.default.createElement(_Row.default, null, _react.default.createElement(_Col.default, {
     md: {
       span: 6,
@@ -38548,7 +38540,7 @@ require("./director-view.scss");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// Director 
+// Director
 function DirectorView(props) {
   var movies = props.movies;
   if (!movies || !movies.length) return null;
@@ -38856,8 +38848,9 @@ var MainView = /*#__PURE__*/function (_React$Component) {
         render: function render(_ref) {
           var match = _ref.match;
           return _react.default.createElement(_movieView.MovieView, {
-            movieId: match.params.movieId,
-            movies: _this3.state.movies
+            movie: movies.find(function (movie) {
+              return movie._id === match.params.movieId;
+            })
           });
         }
       }), _react.default.createElement(_reactRouterDom.Route, {
@@ -39048,7 +39041,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61168" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49768" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
