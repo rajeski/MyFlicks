@@ -77,6 +77,9 @@ app.use(morgan("common"));
 // To serve static file(s) - public folder
 app.use(express.static("public"));
 app.use("/client", express.static(path.join(__dirname, "client", "dist")));
+app.get("/client/*", (req, res) => {
+  res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
+});
 
 // Middleware error-handling function - log application-level errors to terminal
 app.use(function (err, req, res, next) {
