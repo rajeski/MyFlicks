@@ -19,6 +19,8 @@ const allowedOrigins = [
   "http://localhost:1234",
   "http://localhost:8080",
   "http://testsite.com",
+  "https://stark-harbor-92573.herokuapp.com/client",
+  "https://stark-harbor-92573.herokuapp.com/client/register",
   "*",
 ];
 
