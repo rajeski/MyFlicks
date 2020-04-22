@@ -38418,22 +38418,22 @@ function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) ||
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 function RegistrationView(props) {
-  var _useState = (0, _react.useState)(''),
+  var _useState = (0, _react.useState)(""),
       _useState2 = _slicedToArray(_useState, 2),
       username = _useState2[0],
       setUsername = _useState2[1];
 
-  var _useState3 = (0, _react.useState)(''),
+  var _useState3 = (0, _react.useState)(""),
       _useState4 = _slicedToArray(_useState3, 2),
       password = _useState4[0],
       setPassword = _useState4[1];
 
-  var _useState5 = (0, _react.useState)(''),
+  var _useState5 = (0, _react.useState)(""),
       _useState6 = _slicedToArray(_useState5, 2),
       email = _useState6[0],
       setEmail = _useState6[1];
 
-  var _useState7 = (0, _react.useState)(''),
+  var _useState7 = (0, _react.useState)(""),
       _useState8 = _slicedToArray(_useState7, 2),
       birthday = _useState8[0],
       setBirthDate = _useState8[1];
@@ -38441,7 +38441,7 @@ function RegistrationView(props) {
   var handleSubmit = function handleSubmit(e) {
     e.preventDefault();
 
-    _axios.default.post('https://stark-harbor-92573.herokuapp.com/users', {
+    _axios.default.post("https://stark-harbor-92573.herokuapp.com/users", {
       Username: username,
       Password: password,
       Email: email,
@@ -38449,11 +38449,11 @@ function RegistrationView(props) {
     }).then(function (response) {
       var data = response.data;
       console.log(data);
-      alert('Success. Please log in');
-      window.open('/', '_self'); // Open in current tab 
+      alert("Success. Please log in");
+      window.open("/client", "_self"); // Open in current tab
     }).catch(function (error) {
-      console.log('Registration error. Username must be a minimum of five characters in length');
-      return alert('Registration failure. Please select a username with a minimum of 5 characters');
+      console.log("Registration error. Username must be a minimum of five characters in length");
+      return alert("Registration failure. Please select a username with a minimum of 5 characters");
     });
   };
 
@@ -38828,7 +38828,9 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       var movies = this.props.movies;
       var user = this.state.user; // if (!movies) return <div className='main-view' />;
 
-      return _react.default.createElement(_reactRouterDom.BrowserRouter, null, _react.default.createElement("div", {
+      return _react.default.createElement(_reactRouterDom.BrowserRouter, {
+        basename: "/client"
+      }, _react.default.createElement("div", {
         className: "main-view"
       }, _react.default.createElement(_reactRouterDom.Route, {
         exact: true,
@@ -39047,7 +39049,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49499" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63243" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
