@@ -107,8 +107,9 @@ export class MainView extends React.Component {
             render={({ match }) => {
               return (
                 <MovieView
-                  movieId={match.params.movieId}
-                  movies={this.state.movies}
+                  movie={movies.find(
+                    (movie) => movie._id === match.params.movieId
+                  )}
                 />
               );
             }}

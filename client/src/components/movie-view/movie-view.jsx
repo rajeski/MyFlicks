@@ -9,14 +9,8 @@ import { Link } from "react-router-dom";
 
 import "./movie-view.scss";
 
-function MovieView(props) {
-  const { movies, movieId } = props;
-
-  if (!movies || !movies.length) return null;
-
-  const movie = movies.find((movie) => movie._id === movieId);
-  console.log("PROPS", movie);
-
+function MovieView({ movie }) {
+  if (!movie) return null;
   return (
     <Container>
       <Row>
