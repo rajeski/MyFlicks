@@ -5,11 +5,12 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 //import Image from "react-bootstrap/Image"; //This link was not here in the April 6th video and I am unsure what to do with it now?
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 import "./movie-view.scss";
 
 function MovieView({ movie }) {
+  const history = useHistory();
   if (!movie) return null;
   return (
     <Container>
@@ -20,7 +21,7 @@ function MovieView({ movie }) {
               <img
                 className="movie-poster"
                 style={{ textAlign: "center" }}
-                src={movie.Image}
+                src={movie.ImagePath}
               />
               <div className="movie-title">
                 <span className="label">Title: </span>
@@ -33,22 +34,24 @@ function MovieView({ movie }) {
 
               <div className="movie-genre">
                 <span className="label">Genre: </span>
-                <span className="value">{movie.Genre.name}</span>
+                <span className="value">{movie.Genre.Name}</span>
               </div>
               <div className="movie-director">
                 <span className="label">Director: </span>
-                <span className="value">{movie.Director.name}</span>
+                <span className="value">{movie.Director.Name}</span>
               </div>
               <div className="buttons-container">
-                <Link to={"/"}>
-                  <Button variant="primary" className="back-button">
-                    Go Back
-                  </Button>
-                </Link>
-                <Link to={"/genres/" + movie.Genre.name}>
+                <Button
+                  onClick={() => history.goBack()}
+                  variant="primary"
+                  className="back-button"
+                >
+                  Go Back
+                </Button>
+                <Link to={"/genres/" + movie.Genre.Name}>
                   <Button variant="link">Genre</Button>
                 </Link>
-                <Link to={"/directors/" + movie.Director.name}>
+                <Link to={"/directors/" + movie.Director.Name}>
                   <Button variant="link">Director</Button>
                 </Link>
               </div>

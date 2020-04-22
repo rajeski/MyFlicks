@@ -3,7 +3,7 @@ import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import { connect } from "react-redux";
@@ -13,10 +13,9 @@ import "./director-view.scss";
 // Director
 
 function DirectorView(props) {
-  const { movies } = props;
-  if (!movies || !movies.length) return null;
-
-  const movie = movies.find((movie) => movie.Director.name);
+  const history = useHistory();
+  const { movie } = props;
+  if (!movie) return null;
 
   return (
     <Container>
@@ -38,9 +37,7 @@ function DirectorView(props) {
                 <span className="value">{movie.Director.Birth}</span>
               </div>
             </div>
-            <Link to={"/"}>
-              <Button>Back</Button>
-            </Link>
+            <Button onClick={() => history.goBack()}>Back</Button>
           </Card>
         </Col>
       </Row>

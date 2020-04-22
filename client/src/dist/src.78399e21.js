@@ -38231,6 +38231,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //import Image from "react-bootstrap/Image"; //This link was not here in the April 6th video and I am unsure what to do with it now?
 function MovieView(_ref) {
   var movie = _ref.movie;
+  var history = (0, _reactRouterDom.useHistory)();
   if (!movie) return null;
   return _react.default.createElement(_Container.default, null, _react.default.createElement(_Row.default, null, _react.default.createElement(_Col.default, {
     md: {
@@ -38246,7 +38247,7 @@ function MovieView(_ref) {
     style: {
       textAlign: "center"
     },
-    src: movie.Image
+    src: movie.ImagePath
   }), _react.default.createElement("div", {
     className: "movie-title"
   }, _react.default.createElement("span", {
@@ -38265,25 +38266,26 @@ function MovieView(_ref) {
     className: "label"
   }, "Genre: "), _react.default.createElement("span", {
     className: "value"
-  }, movie.Genre.name)), _react.default.createElement("div", {
+  }, movie.Genre.Name)), _react.default.createElement("div", {
     className: "movie-director"
   }, _react.default.createElement("span", {
     className: "label"
   }, "Director: "), _react.default.createElement("span", {
     className: "value"
-  }, movie.Director.name)), _react.default.createElement("div", {
+  }, movie.Director.Name)), _react.default.createElement("div", {
     className: "buttons-container"
-  }, _react.default.createElement(_reactRouterDom.Link, {
-    to: "/"
   }, _react.default.createElement(_Button.default, {
+    onClick: function onClick() {
+      return history.goBack();
+    },
     variant: "primary",
     className: "back-button"
-  }, "Go Back")), _react.default.createElement(_reactRouterDom.Link, {
-    to: "/genres/" + movie.Genre.name
+  }, "Go Back"), _react.default.createElement(_reactRouterDom.Link, {
+    to: "/genres/" + movie.Genre.Name
   }, _react.default.createElement(_Button.default, {
     variant: "link"
   }, "Genre")), _react.default.createElement(_reactRouterDom.Link, {
-    to: "/directors/" + movie.Director.name
+    to: "/directors/" + movie.Director.Name
   }, _react.default.createElement(_Button.default, {
     variant: "link"
   }, "Director"))))))));
@@ -38545,11 +38547,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 // Director
 function DirectorView(props) {
-  var movies = props.movies;
-  if (!movies || !movies.length) return null;
-  var movie = movies.find(function (movie) {
-    return movie.Director.name;
-  });
+  var history = (0, _reactRouterDom.useHistory)();
+  var movie = props.movie;
+  if (!movie) return null;
   return _react.default.createElement(_Container.default, null, _react.default.createElement(_Row.default, null, _react.default.createElement(_Col.default, {
     md: {
       span: 6,
@@ -38579,9 +38579,11 @@ function DirectorView(props) {
     className: "label"
   }, "BirthDate: "), _react.default.createElement("span", {
     className: "value"
-  }, movie.Director.Birth))), _react.default.createElement(_reactRouterDom.Link, {
-    to: "/"
-  }, _react.default.createElement(_Button.default, null, "Back"))))));
+  }, movie.Director.Birth))), _react.default.createElement(_Button.default, {
+    onClick: function onClick() {
+      return history.goBack();
+    }
+  }, "Back")))));
 }
 
 var _default = (0, _reactRedux.connect)(function (_ref) {
@@ -38635,6 +38637,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 // Genre
 function GenreView(props) {
+  var history = (0, _reactRouterDom.useHistory)();
   var movies = props.movies;
   if (!movies || !movies.length) return null;
   var movie = movies.find(function (movie) {
@@ -38663,11 +38666,11 @@ function GenreView(props) {
     className: "label"
   }, "Description: "), _react.default.createElement("span", {
     className: "value"
-  }, movie.Genre.Description))), _react.default.createElement(_reactRouterDom.Link, {
-    to: "/"
-  }, _react.default.createElement(_Button.default, {
-    className: "back-button"
-  }, "Back"))))));
+  }, movie.Genre.Description))), _react.default.createElement(_Button.default, {
+    onClick: function onClick() {
+      return history.goBack();
+    }
+  }, "Back")))));
 }
 
 var _default = (0, _reactRedux.connect)(function (_ref) {
@@ -39044,7 +39047,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62859" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49499" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
