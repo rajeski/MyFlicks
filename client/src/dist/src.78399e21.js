@@ -38064,7 +38064,10 @@ var MovieCard = function MovieCard(props) {
   }, _react.default.createElement(_Card.default.Img, {
     variant: "top",
     src: movie.image
-  }), _react.default.createElement(_Card.default.Body, null, _react.default.createElement(_Card.default.Title, null, movie.Title), _react.default.createElement(_Card.default.Text, null, movie.Description), _react.default.createElement(_reactRouterDom.Link, {
+  }), _react.default.createElement(_Card.default.Body, null, _react.default.createElement(_Card.default.Title, null, movie.Title), _react.default.createElement(_Image.default, {
+    src: movie.ImagePath,
+    rounded: true
+  }), _react.default.createElement(_Card.default.Text, null, movie.Description), _react.default.createElement(_reactRouterDom.Link, {
     to: "/movies/" + movie._id
   }, _react.default.createElement(_Button.default, {
     variant: "link"
@@ -39041,7 +39044,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60082" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62859" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
