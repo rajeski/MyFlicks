@@ -45,6 +45,13 @@ function DirectorView(props) {
   );
 }
 
+/**
+ * Director information 
+ * @function DirectorView
+ * @param {string} props - movie.director.name props
+ * @returns {DirectorView}
+ */
+
 export default connect(({ movies }) => ({ movies }))(DirectorView);
 
 DirectorView.propTypes = {

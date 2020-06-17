@@ -32,26 +32,14 @@ export class MainView extends React.Component {
       // localStorage.setItem('user', this.state.user);
     }
   }
-  // getUser = (token) => {
-  //     let username = localStorage.getItem('user');
-  //     const userURL = 'https://stark-harbor-92573.herokuapp.com/users/';
-  //     axios
-  //         .get(userURL + username, {
-  //             headers: { Authorization: `Bearer ${token}` },
-  //         })
-  //         .then(response => {
-  //             // this.props.setLoggedInUser(response.data);
-  //             this.setState({
-  //                 username: response.data.Username,
-  //                 email: response.data.Email,
-  //                 birthdate: response.data.BirthDate.substr(0, 10),
-  //                 favoriteMovies: response.data.favoriteMovies,
-  //             });
-  //         })
-  //         .catch(function (error) {
-  //             console.log(error);
-  //         });
-  // }
+
+  /**
+    * Logged in submits Get request for movie list
+    * @function getMovies
+    * @param {number} token
+    * @returns {array} movies
+    */
+
   getMovies(token) {
     axios
       .get("https://stark-harbor-92573.herokuapp.com/movies", {
@@ -67,6 +55,15 @@ export class MainView extends React.Component {
         console.log(error);
       });
   }
+
+  /**
+* Info sent to Post from LoginView
+* @function onLoggedIn
+* @param {object} authData from LoginView
+* @returns {state}
+* @returns {localStorage}
+*/
+
   onLoggedIn(authData) {
     console.log(authData);
     this.setState({

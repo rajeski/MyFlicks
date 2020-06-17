@@ -9,6 +9,13 @@ import { Link, useHistory } from "react-router-dom";
 
 import "./movie-view.scss";
 
+/**
+ * Add movie to favorite list
+ * @function handleSubmit
+ * @param {event} onClick
+ * @returns {alert} - movie favorite added 
+ */
+
 function MovieView({ movie }) {
   const history = useHistory();
   if (!movie) return null;

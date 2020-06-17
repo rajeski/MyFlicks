@@ -6,6 +6,14 @@ import axios from "axios";
 export function LoginView(props) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
+  /**
+   * Post User name login
+   * @function handleSubmit
+   * @param {event}
+   * @return {object} User Info
+   */
+
   const handleSubmit = (e) => {
     e.preventDefault();
     /* Send a request to the server for authentication */

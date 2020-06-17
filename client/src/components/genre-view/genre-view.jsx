@@ -42,6 +42,13 @@ function GenreView(props) {
   );
 }
 
+/**
+ * Genre information 
+ * @function GenreView
+ * @param {string} props - movie.genre
+ * @returns {Container} - Genre
+ */
+
 export default connect(({ movies }) => ({ movies }))(GenreView);
 
 GenreView.propTypes = {
