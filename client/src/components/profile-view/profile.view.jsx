@@ -28,7 +28,7 @@ export class ProfileView extends Component {
   // Get User
 
   /**
- * Get user displays / sets state
+ * Get user displays / sets state related to this request
  * @param {number} token
  * @return {object} user information
  */
@@ -53,7 +53,7 @@ export class ProfileView extends Component {
       });
   }
 
-  // Delete User
+  // Delete User (method called to delete an individual profile)
 
   deleteProfile = (e) => {
     e.preventDefault();
@@ -78,7 +78,7 @@ export class ProfileView extends Component {
     * @return {alert} removed ID from movie favorites
   */
 
-  // Delete Movie
+  // Delete Movie (method called to delete a specific movie)
 
   deleteMovie = (e, movieId) => {
     e.preventDefault();

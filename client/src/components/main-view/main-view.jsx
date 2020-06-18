@@ -34,7 +34,7 @@ export class MainView extends React.Component {
   }
 
   /**
-    * Logged in submits Get request for movie list
+    * Logged in submits Get request for movie list function
     * @function getMovies
     * @param {number} token
     * @returns {array} movies
@@ -57,7 +57,7 @@ export class MainView extends React.Component {
   }
 
   /**
-* Info sent to Post from LoginView
+* Info sent to Post from LoginView (determine if current user is autheticated)
 * @function onLoggedIn
 * @param {object} authData from LoginView
 * @returns {state}

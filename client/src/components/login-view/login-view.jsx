@@ -8,10 +8,10 @@ export function LoginView(props) {
   const [password, setPassword] = useState("");
 
   /**
-   * Post User name login
+   * Post User name login (function handing the form's submission)
    * @function handleSubmit
    * @param {event}
-   * @return {object} User Info
+   * @return {object} User Information
    */
 
   const handleSubmit = (e) => {

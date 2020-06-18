@@ -10,7 +10,7 @@ import { connect } from "react-redux";
 
 import "./director-view.scss";
 
-// Director
+// Director (a single props which returns this element)
 
 function DirectorView(props) {
   const history = useHistory();
@@ -46,7 +46,7 @@ function DirectorView(props) {
 }
 
 /**
- * Director information 
+ * Director information (code block which returns the requested information)
  * @function DirectorView
  * @param {string} props - movie.director.name props
  * @returns {DirectorView}

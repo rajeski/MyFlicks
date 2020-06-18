@@ -10,7 +10,7 @@ import Button from "react-bootstrap/Button";
 
 import "./genre-view.scss";
 
-// Genre
+// Genre (a single props which returns this element)
 
 function GenreView(props) {
   const history = useHistory();
@@ -43,7 +43,7 @@ function GenreView(props) {
 }
 
 /**
- * Genre information 
+ * Genre information (code block which returns the requested information)
  * @function GenreView
  * @param {string} props - movie.genre
  * @returns {Container} - Genre

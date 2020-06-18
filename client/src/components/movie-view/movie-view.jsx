@@ -4,13 +4,12 @@ import Card from "react-bootstrap/Card";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
-//import Image from "react-bootstrap/Image"; //This link was not here in the April 6th video and I am unsure what to do with it now?
 import { Link, useHistory } from "react-router-dom";
 
 import "./movie-view.scss";
 
 /**
- * Add movie to favorite list
+ * Add movie to favorite list (function handling this form's submission)
  * @function handleSubmit
  * @param {event} onClick
  * @returns {alert} - movie favorite added 
