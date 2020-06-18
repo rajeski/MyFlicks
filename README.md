@@ -53,7 +53,7 @@ The application -
 Additional Features / Website Improvements - 
 
 1) The current homepage minimalism would benefit from the UX being redesigned
-2) The delete favorite movie feature needs to be fully deployed 
+2) The delete favorite movie feature needs to be fully implemented
 3) A minimal number of demo movies are currently only offered in the database
 4) An additional layer of API-security is highly recommended 
 5) Full-deployment to Heroku is pending 
