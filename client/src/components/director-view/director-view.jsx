@@ -12,6 +12,13 @@ import "./director-view.scss";
 
 // Director (a single props which returns this element)
 
+/**
+ * Director Information View
+ * @function DirectorView
+ * @param {string} props - movie.director.name props
+ * @returns {DirectorView}
+ */
+
 function DirectorView(props) {
   const history = useHistory();
   const { movie } = props;

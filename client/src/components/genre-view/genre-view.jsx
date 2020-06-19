@@ -12,6 +12,13 @@ import "./genre-view.scss";
 
 // Genre (a single props which returns this element)
 
+/**
+ * Genre Movie Information
+ * @function GenreView
+ * @param {string} props - movie.genre
+ * @returns {Container} - genre information
+ */
+
 function GenreView(props) {
   const history = useHistory();
   const { movies } = props;
