@@ -1,4 +1,4 @@
-# Server Side Pro Node
+# Server-Side Pro Node
 
 The "MyFlicks" Movie Website Project (including building an API). Part of CareerFoundry's Full-Stack Web Development Course to demonstrate mastery regarding using JavaScript withing MERN stack.
 
