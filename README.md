@@ -59,5 +59,5 @@ Additional Features / Website Improvements -
 5) Full-deployment to Heroku is pending 
 
 Demo Access Credentials - 
-breakthru 
-12345
+(LI) breakthru 
+(PW) 12345
