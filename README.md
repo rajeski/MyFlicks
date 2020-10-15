@@ -1,6 +1,6 @@
 # Server-Side Pro Node
 
-The "MyFlicks" Movie Website Project (including building an API). Part of CareerFoundry's Full-Stack Web Development Course to demonstrate mastery regarding using JavaScript withing MERN stack.
+The "MyFlicks" Movie Website Project (including building an API) to demonstrate a foundational JavaScript skillset within a MERN stack.
 
 This README provides an overview of the contains technical and content-related details about the server-side and client-side component of a React application called "myFlix". The REST API for "myFlix" is hosted online on Heroku and Netlify (https://distracted-elion-663925.netlify.app/) allowing registered / logged-in users access to information about different movies, directors, and genres. 
 
